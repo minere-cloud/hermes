@@ -6,4 +6,12 @@ services:
     env_file: .env
     ports:
       - 3000:3000
-    
+  vanilla_scraper:
+    <<: app
+    command: bun run commands/scrapeVanilla.ts
+  pufferfish_scraper:
+    <<: app
+    command: bun run commands/scrapePufferfish.ts
+  paper_scraper:
+    <<: app
+    command: bun run commands/scrapePaper.ts
