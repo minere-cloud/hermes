@@ -4,7 +4,6 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth"
 const { MCVERSIONS_URL } = process.env
 
 export const VanillaScraper = async (version: string): Promise<string> => {
-    console.log(`Scraping version ${version}`)
     puppeteer.use(StealthPlugin())
     const browser = await puppeteer.launch({ channel: "chrome", headless: "new" })
     const page = await browser.newPage()
