@@ -24,7 +24,7 @@ describe("Download service", () => {
         expect(await DownloadService().generateUrlModrinth(mockModrinthUrl)).toBe(mocktModrinthDownloadUrl)
     })
 
-    test("If it we download from url", async () => {
+    test("If it we can download server jar", async () => {
         const tmpFilePath = "/tmp/server.jar"
         if(await Bun.file(tmpFilePath).exists()) unlinkSync(tmpFilePath)
         const downloadUrl = await DownloadService().generateUrlServerJar("paper", "1.20.2")
