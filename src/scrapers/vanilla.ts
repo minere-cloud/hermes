@@ -1,10 +1,9 @@
-import axios from "axios"
 import puppeteer from "puppeteer-extra"
 import StealthPlugin from "puppeteer-extra-plugin-stealth"
 
-const {MCVERSIONS_URL} = process.env 
+const { MCVERSIONS_URL } = process.env
 
-export const VanillaScraper = async (version: string): Promise<Buffer> => {
+export const VanillaScraper = async (version: string): Promise<string> => {
     console.log(`Scraping version ${version}`)
     puppeteer.use(StealthPlugin())
     const browser = await puppeteer.launch({ channel: "chrome", headless: "new" })
@@ -14,5 +13,5 @@ export const VanillaScraper = async (version: string): Promise<Buffer> => {
     const textSelector = await page.waitForSelector("text/Download Server Jar")
     const downloadUrl = await textSelector?.evaluate(el => el.href)
     await browser.close()
-    return (await axios.get(downloadUrl, { responseType: "arraybuffer" })).data as Buffer
+    return downloadUrl
 }

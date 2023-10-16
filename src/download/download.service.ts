@@ -1,6 +1,7 @@
 import { GetObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { S3Client } from "../lib/s3"
+import axios from "axios"
 
 const { MODRINTH_API_URL, SPIGET_API_URL, R2_BUCKET_NAME } = process.env
 
@@ -22,8 +23,8 @@ export const DownloadService = () => {
             const resourceName = urlAsArray[urlAsArray.length - 1]
 
             // Project ID
-            const searchFetch = await fetch(`${MODRINTH_API_URL}/search?query=${resourceName}`)
-            const searchResult = await searchFetch.json() as any
+            const searchFetch = await axios.get(`${MODRINTH_API_URL}/search?query=${resourceName}`)
+            const searchResult = await searchFetch.data as any
             const resourceId = searchResult.hits[0].project_id
 
             // Download URL
@@ -32,10 +33,10 @@ export const DownloadService = () => {
 
             return projectVersionResult[0].files[0].url
         },
-        generateUrlServerJar: async (jar: string, version: string) => {
+        generateUrlServerJar: async (type: string, version: string) => {
             return await getSignedUrl(S3Client, new GetObjectCommand({
                 Bucket: R2_BUCKET_NAME,
-                Key: `${jar}/${version}/server.jar`
+                Key: `${type}/${version}/server.jar`
             }), { expiresIn: 60 })
         }
     }
