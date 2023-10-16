@@ -1,17 +1,17 @@
 services:
-  app:
+  app: &app
     build:
       context: .
       dockerfile: Dockerfile
-    env_file: .env
+    env_file: .env.local
     ports:
       - 3000:3000
   vanilla_scraper:
-    <<: app
-    command: bun run commands/scrapeVanilla.ts
+    <<: *app
+    #command: bun run commands/scrapeVanilla.ts
   pufferfish_scraper:
-    <<: app
+    <<: *app
     command: bun run commands/scrapePufferfish.ts
   paper_scraper:
-    <<: app
+    <<: *app
     command: bun run commands/scrapePaper.ts
