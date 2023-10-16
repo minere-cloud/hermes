@@ -1,0 +1,23 @@
+on: push
+concurrency: 
+  cancel-in-progress: true
+  group: development
+jobs:
+  job:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: oven-sh/setup-bun@v1
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Lint
+        uses: mooyoul/tslint-actions@v1.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: '*.ts'
+
+      - name: Test
+        run: |
+          bun install
+          bun run test:cov
