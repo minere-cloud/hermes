@@ -1,5 +1,9 @@
 {
-  "scripts": {},
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "test": "bun test",
+    "test:cov": "bun test --coverage"
+  },
   "type": "module",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.428.0",
