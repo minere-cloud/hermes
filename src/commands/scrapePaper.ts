@@ -1,21 +1,25 @@
 import { PaperScraper } from "../scrapers/paper"
 import { versionsToScrape } from "../helper/versionsToScrape"
-import { saveBufferToS3 } from "../helper/saveBufferToS3"
-import { fileExitsInS3 } from "../helper/fileExistsInS3"
-import { fetchBuffer } from "../helper/fetchBuffer"
+import { fetchFileBuffer } from "../helper/fetchFileBuffer"
+import { StorageService } from "../storage/storage.service"
+import { logger } from "../lib/logger"
 
 const scraper = "paper"
 
 const scrapePaper = async () => {
 
     versionsToScrape(scraper).forEach(async (version, index) => {
-        // Skip if is not latest or not exits
-        if (await fileExitsInS3(`paper/${version}/server.jar`) && index != 0) {
-            return console.log(`Version ${version} already scraped. Skipping...`)
+        if (await StorageService().fileExits(`paper/${version}/server.jar`) && index != 0) {
+            logger.info(`Version ${version} already scraped. Skipping...`)
+            return
         }
         const downloadUrl = await PaperScraper(version)
-        await saveBufferToS3(`${scraper}/${version}/server.jar`, await fetchBuffer(downloadUrl))
-        console.log(`Scraped version ${version}.`)
+        const fileBuffer = await fetchFileBuffer(downloadUrl)
+        if(await StorageService().saveFile(`${scraper}/${version}/server.jar`, fileBuffer)) {
+            logger.info(`Scraped version ${version}`)
+            return
+        }
+        logger.error(`Scrape of version ${version} failed`)
     })
 }
 

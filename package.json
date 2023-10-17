@@ -12,7 +12,8 @@
     "hono": "^3.7.2",
     "puppeteer": "^21.3.8",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "bun-types": "^1.0.6"
