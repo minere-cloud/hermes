@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'bun:test'
 import { DownloadService } from "./download.service"
-import { fetchBuffer } from '../helper/fetchFileBuffer'
+import { fetchFileBuffer } from '../helper/fetchFileBuffer'
 import { unlinkSync } from "fs"
 
 describe("Download service", () => {
@@ -28,7 +28,7 @@ describe("Download service", () => {
         const tmpFilePath = "/tmp/server.jar"
         if (await Bun.file(tmpFilePath).exists()) unlinkSync(tmpFilePath)
         const downloadUrl = await DownloadService().generateUrlServerJar("paper", "1.20.2")
-        const fileBuffer = await fetchBuffer(downloadUrl)
+        const fileBuffer = await fetchFileBuffer(downloadUrl)
         await Bun.write(tmpFilePath, fileBuffer)
         expect(Bun.file(tmpFilePath).size).toBeGreaterThan(0)
     })
