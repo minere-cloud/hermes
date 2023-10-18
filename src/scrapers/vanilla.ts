@@ -3,8 +3,9 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth"
 
 const { MCVERSIONS_URL } = process.env
 
+puppeteer.use(StealthPlugin())
+
 export const VanillaScraper = async (version: string): Promise<string> => {
-    puppeteer.use(StealthPlugin())
     const browser = await puppeteer.launch({ channel: "chrome", headless: "new" })
     const page = await browser.newPage()
     page.goto(`${MCVERSIONS_URL}/download/${version}`)
