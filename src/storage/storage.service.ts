@@ -3,7 +3,7 @@ import { S3Client } from "../lib/s3"
 
 const { R2_BUCKET_NAME } = process.env
 
-export const StorageService = () => {
+const StorageService = () => {
     return {
         saveFile: async (fileName: string, fileBuffer: Buffer): Promise<boolean> => {
             const { $metadata } = await S3Client.send(new PutObjectCommand({
@@ -17,12 +17,13 @@ export const StorageService = () => {
         },
         fileExits: async (fileName: string): Promise<boolean> => {
             try {
-                const { $metadata } = await S3Client.send(new HeadObjectCommand({ Bucket: R2_BUCKET_NAME, Key: fileName }))
+                await S3Client.send(new HeadObjectCommand({ Bucket: R2_BUCKET_NAME, Key: fileName }))
                 return true
             } catch (error) {
                 return false
             }
-            return false
         }
     }
 }
+
+export default StorageService()

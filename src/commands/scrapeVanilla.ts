@@ -1,20 +1,20 @@
 import { VanillaScraper } from '../scrapers/vanilla';
 import { versionsToScrape } from '../helper/versionsToScrape';
 import { fetchFileBuffer } from '../helper/fetchFileBuffer';
-import { StorageService } from '../storage/storage.service';
+import StorageService from '../storage/storage.service';
 import { logger } from '../lib/logger';
 
 const scraper = "vanilla"
 
 const scrapeVanilla = () => {
     versionsToScrape(scraper).forEach(async (version, index) => {
-        if (await StorageService().fileExits(`${scraper}/${version}/server.jar`) && index != 0) {
+        if (await StorageService.fileExits(`${scraper}/${version}/server.jar`) && index != 0) {
             logger.info(`Version ${version} already scraped. Skipping...`)
             return 
         }
         const downloadUrl = await VanillaScraper(version)
         const fileBuffer = await fetchFileBuffer(downloadUrl)
-        if(await StorageService().saveFile(`${scraper}/${version}/server.jar`, fileBuffer)) {
+        if(await StorageService.saveFile(`${scraper}/${version}/server.jar`, fileBuffer)) {
             logger.info(`Scraped version ${version}.`)
             return
         }
