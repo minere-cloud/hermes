@@ -5,11 +5,12 @@ import axios from "axios"
 
 const { MODRINTH_API_URL, SPIGET_API_URL, R2_BUCKET_NAME } = process.env
 
-export const DownloadService = () => {
+const DownloadService = () => {
     return {
         generateUrlSpigot: (url: string): string => {
             // Parse URL
             const urlAsArray = url.split("/")
+            
             // Second uri param and first from .
             // Resource name and id
             const resource = urlAsArray[4].split(".")
@@ -18,8 +19,6 @@ export const DownloadService = () => {
         generateUrlModrinth: async (url: string): Promise<string> => {
             // Parse URL
             const urlAsArray = url.split("/")
-
-            // Resource name
             const resourceName = urlAsArray[urlAsArray.length - 1]
 
             // Project ID
@@ -41,3 +40,5 @@ export const DownloadService = () => {
         }
     }
 }
+
+export default DownloadService()
