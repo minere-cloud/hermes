@@ -1,8 +1,8 @@
-import { PufferfishScraper } from "../scrapers/pufferfish"
-import { versionsToScrape } from "../helper/versionsToScrape"
-import { fetchFileBuffer } from "../helper/fetchFileBuffer"
-import { logger } from "../lib/logger"
-import StorageService from "../storage/storage.service"
+import { PufferfishScraper } from "../scrapers/pufferfish.js"
+import { versionsToScrape } from "../helper/versionsToScrape.js"
+import { fetchFileBuffer } from "../helper/fetchFileBuffer.js"
+import { logger } from "../lib/logger.js"
+import StorageService from "../storage/storage.service.js"
 
 const { R2_SERVER_JAR_BUCKET_NAME } = process.env
 

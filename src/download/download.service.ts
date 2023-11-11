@@ -1,5 +1,5 @@
 import axios from "axios"
-import StorageService from "../storage/storage.service"
+import StorageService from "../storage/storage.service.js"
 
 const { MODRINTH_API_URL, SPIGET_API_URL, R2_SERVER_JAR_BUCKET_NAME, R2_SERVER_TEMPLATE_BUCKET_NAME } = process.env
 

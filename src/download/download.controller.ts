@@ -1,5 +1,5 @@
 import { Context } from "hono"
-import DownloadService from "./download.service"
+import DownloadService from "./download.service.js"
 
 const DownloadController = () => {
     return {

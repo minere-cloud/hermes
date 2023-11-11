@@ -1,8 +1,8 @@
-import { VanillaScraper } from '../scrapers/vanilla';
-import { versionsToScrape } from '../helper/versionsToScrape';
-import { fetchFileBuffer } from '../helper/fetchFileBuffer';
-import StorageService from '../storage/storage.service';
-import { logger } from '../lib/logger';
+import { VanillaScraper } from '../scrapers/vanilla.js';
+import { versionsToScrape } from '../helper/versionsToScrape.js';
+import { fetchFileBuffer } from '../helper/fetchFileBuffer.js';
+import StorageService from '../storage/storage.service.js';
+import { logger } from '../lib/logger.js';
 
 const { R2_SERVER_JAR_BUCKET_NAME } = process.env
 

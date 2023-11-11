@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import DownloadController from "./download.controller";
+import DownloadController from "./download.controller.js";
 
 export const DownloadRouter = new Hono()
 
