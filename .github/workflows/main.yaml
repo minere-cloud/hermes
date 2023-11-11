@@ -1,7 +1,7 @@
 on: push
 concurrency: 
   cancel-in-progress: true
-  group: development
+  group: main
 jobs:
   job:
     name: Test
@@ -15,7 +15,9 @@ jobs:
             R2_ACCESS_KEY: ${{ secrets.R2_ACCESS_KEY }}
             R2_SECRET_KEY: ${{ secrets.R2_SECRET_KEY }}
             R2_ACCOUNT_ID: ${{ vars.R2_ACCOUNT_ID }}
-            R2_BUCKET_NAME: ${{ vars.R2_BUCKET_NAME }}
+            R2_SERVER_JAR_BUCKET_NAME: ${{ vars.R2_SERVER_JAR_BUCKET_NAME }}
+            R2_SERVER_TEMPLATE_BUCKET_NAME: ${{ vars.R2_SERVER_TEMPLATE_BUCKET_NAME }}
+
         run: |
           bun install
           bun run test:cov
