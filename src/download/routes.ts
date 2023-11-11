@@ -5,3 +5,4 @@ export const DownloadRouter = new Hono()
 
 DownloadRouter.get('/plugin', DownloadController.gePlugin)
 DownloadRouter.get("/serverjar/:type/:version", DownloadController.getServerJar)
+DownloadRouter.get("/servertemplate/:type", DownloadController.getServerTemlate)

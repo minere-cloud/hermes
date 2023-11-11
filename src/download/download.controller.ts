@@ -16,6 +16,10 @@ const DownloadController = () => {
         getServerJar: async (c: Context) => {
             const { type, version } = c.req.param()
             return c.redirect(await DownloadService.generateUrlServerJar(type, version))
+        },
+        getServerTemlate: async (c: Context) => {
+            const { type } = c.req.param()
+            return c.redirect(await DownloadService.generateUrlServerTemplate(type))
         }
     }
 }

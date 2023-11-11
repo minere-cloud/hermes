@@ -4,18 +4,20 @@ import { fetchFileBuffer } from "../helper/fetchFileBuffer"
 import { logger } from "../lib/logger"
 import StorageService from "../storage/storage.service"
 
+const { R2_SERVER_JAR_BUCKET_NAME } = process.env
+
 const scraper = "paper"
 
 const scrapePaper = async () => {
 
     versionsToScrape(scraper).forEach(async (version, index) => {
-        if (await StorageService.fileExits(`paper/${version}/server.jar`) && index != 0) {
+        if (await StorageService.fileExits(`paper/${version}/server.jar`, R2_SERVER_JAR_BUCKET_NAME ?? "") && index != 0) {
             logger.info(`Version ${version} already scraped. Skipping...`)
             return
         }
         const downloadUrl = await PaperScraper(version)
         const fileBuffer = await fetchFileBuffer(downloadUrl)
-        if(await StorageService.saveFile(`${scraper}/${version}/server.jar`, fileBuffer)) {
+        if (await StorageService.saveFile(`${scraper}/${version}/server.jar`, fileBuffer, R2_SERVER_JAR_BUCKET_NAME ?? "")) {
             logger.info(`Scraped version ${version}`)
             return
         }
