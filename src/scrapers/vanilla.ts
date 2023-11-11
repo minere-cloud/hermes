@@ -11,7 +11,7 @@ export const VanillaScraper = async (version: string): Promise<string> => {
     page.goto(`${MCVERSIONS_URL}/download/${version}`)
     await page.setViewport({ width: 1080, height: 1024 });
     const textSelector = await page.waitForSelector("text/Download Server Jar")
-    // @ts-expect-error
+    // @ts-expect-error Putteer is broken
     const downloadUrl = await textSelector?.evaluate(el => el.href)
     await browser.close()
     return downloadUrl
