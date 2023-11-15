@@ -1,12 +1,21 @@
-import { Hono } from 'hono'
-import { DownloadRouter } from './download/routes.js';
-import { serve } from '@hono/node-server';
-import { logger } from './lib/logger.js';
+import { initConsumers } from "./consume.js";
+import { logger } from "./lib/logger.js";
+import { initServer } from "./server.js";
 
-const app = new Hono().basePath("/v1")
+const { APP_MODE } = process.env;
 
-app.route("/download", DownloadRouter)
-
-serve({fetch: app.fetch, hostname: "0.0.0.0", port: 3000}, (info) => {
-  logger.info(`Server is listening on http://${info.address}:${info.port}`)
-})
+(async () => {
+    switch (APP_MODE) {
+        case 'serve':
+            logger.info('Starting app in serve mode.')
+            initServer()
+            break
+        case 'consume':
+            logger.info('Starting app in consume mode.')
+            initConsumers()
+            break
+        default:
+            logger.error('App mode is not valid')
+            break;
+    }
+})()

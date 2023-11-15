@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  
+}
+
+model ServerJar {
+  id String @id() @default(cuid())
+  type String
+  build String? @unique
+  version String
+  url String
+}
