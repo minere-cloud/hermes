@@ -6,7 +6,7 @@
     "@aws-sdk/client-s3": "^3.449.0",
     "@aws-sdk/s3-request-presigner": "^3.449.0",
     "@hono/node-server": "^1.2.0",
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^5.6.0",
     "axios": "^1.6.1",
     "hono": "^3.9.2",
     "kafkajs": "^2.2.4",
@@ -32,7 +32,7 @@
     "test": "node --no-warnings=ExperimentalWarning --loader ts-node/esm --env-file .env.test --test src/**/*.test.ts",
     "test:cov": "node --no-warnings=ExperimentalWarning --loader ts-node/esm --env-file .env.test --test --experimental-test-coverage src/**/*.test.ts",
     "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "db:push": "dotenv -e .env.local -- prisma db push"
   }
 }

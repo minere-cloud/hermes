@@ -20,7 +20,8 @@ const cli = meow('Create Fetch Job', { importMeta: import.meta, flags: { type: {
         const { builds } = await paperFetcher(version)
         for (const build of builds) {
           messages.push({
-            value: JSON.stringify({ version, build: build.id, url: build.url })
+            key: `fetch-${version}`,
+            value: JSON.stringify({ version, build: build.id?.toString(), url: build.url })
           })
         }
         break
@@ -29,6 +30,7 @@ const cli = meow('Create Fetch Job', { importMeta: import.meta, flags: { type: {
         const { builds } = await pufferfishFetcher(version)
         for (const build of builds) {
           messages.push({
+            key: `fetch-${version}`,
             value: JSON.stringify({ version, build: build.id, url: build.url })
           })
         }
@@ -38,6 +40,7 @@ const cli = meow('Create Fetch Job', { importMeta: import.meta, flags: { type: {
         const { builds } = await vanillaFetcher(version)
         for (const build of builds) {
           messages.push({
+            key: `fetch-${version}`,
             value: JSON.stringify({ version, build: build.id, url: build.url })
           })
         }
