@@ -1,9 +1,9 @@
 import { Message } from "kafkajs";
 import meow from "meow"
 import { exit } from "process";
-import { loadConfig } from "../src/lib/config.js";
-import { kafkaClient } from "../src/lib/kafka.js";
-import { paperFetcher } from "../src/fetcher/paper.js";
+import { loadConfig } from "./lib/config.js";
+import { kafkaClient } from "./lib/kafka.js";
+import { paperFetcher } from "./fetcher/paper.js";
 import { pufferfishFetcher } from './fetcher/pufferfish.js';
 import { vanillaFetcher } from "./fetcher/vanilla.js";
 import { logger } from "./lib/logger.js";
