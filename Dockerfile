@@ -1,6 +1,6 @@
 FROM node:20.9-bullseye-slim AS BUILD
 
-COPY package.json package-lock.json tsconfig.json src /build/
+COPY . /build/
 
 WORKDIR /build
 
