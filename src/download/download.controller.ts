@@ -1,5 +1,5 @@
 import { Context } from "hono"
-import DownloadService from "./download.service"
+import DownloadService from "./download.service.js"
 
 const DownloadController = () => {
     return {
@@ -20,6 +20,9 @@ const DownloadController = () => {
         getServerTemlate: async (c: Context) => {
             const { type } = c.req.param()
             return c.redirect(await DownloadService.generateUrlServerTemplate(type))
+        },
+        getServerJarsBuilds:async (c: Context) => {
+          return c.json(await DownloadService.getAllServerJarsBuilds())
         }
     }
 }
