@@ -4,8 +4,8 @@ import { pufferfishFetcher } from "./pufferfish.js";
 
 describe("Pufferfish Fetcher", () => {
     test("Get download url for jar version", async () => {
-        const mockPufferfishDownloadUrl = "https://ci.pufferfish.host/job/Pufferfish-1.19/73/artifact/build/libs/pufferfish-paperclip-1.19.4-R0.1-SNAPSHOT-reobf.jar"
-        const { url } = await pufferfishFetcher("1.19")
-        assert.equal(url, mockPufferfishDownloadUrl)
+        const { builds } = await pufferfishFetcher("1.19")
+        const result = builds.filter((build) => build.id == 73)
+        assert.equal(result.length, 1)
     })
 })

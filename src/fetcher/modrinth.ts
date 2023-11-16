@@ -1,6 +1,4 @@
 import axios from "axios"
-import { FetchResult } from "./fetchResult.js"
-
 
 type ModrinthSearchResultHit = {
   project_id: string
@@ -22,9 +20,13 @@ type ModrinthProjectVersion = {
 
 type ModrinthProjectVersionResult = ModrinthProjectVersion[]
 
+type ModrinthFetchResult = {
+  url: string
+}
+
 const { MODRINTH_API_URL } = process.env
 
-export const modrinthFetcher = async (sourceuUrl: string): Promise<FetchResult> => {
+export const modrinthFetcher = async (sourceuUrl: string): Promise<ModrinthFetchResult> => {
   // Parse URL
   const urlAsArray = sourceuUrl.split("/")
   const resourceName = urlAsArray[urlAsArray.length - 1]
@@ -37,5 +39,5 @@ export const modrinthFetcher = async (sourceuUrl: string): Promise<FetchResult> 
   const projectVersionFetch = await axios.get(`${MODRINTH_API_URL}/project/${resourceId}/version`)
   const projectVersionResult = await projectVersionFetch.data as ModrinthProjectVersionResult
   const url = projectVersionResult[0].files[0].url
-  return { build: null, url }
+  return { url }
 }

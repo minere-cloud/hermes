@@ -1,8 +1,10 @@
-import { FetchResult } from "./fetchResult.js"
+type SpigotFetch = {
+  url: string
+}
 
 const { SPIGET_API_URL } = process.env
 
-export const spigotFetcher = (sourceUrl: string): FetchResult => {
+export const spigotFetcher = (sourceUrl: string): SpigotFetch => {
   // Parse URL
   const urlAsArray = sourceUrl.split("/")
 
@@ -11,5 +13,5 @@ export const spigotFetcher = (sourceUrl: string): FetchResult => {
   const resource = urlAsArray[4].split(".")
   const url = `${SPIGET_API_URL}/resources/${resource[1]}/download`
 
-  return { build: null, url }
+  return { url }
 }

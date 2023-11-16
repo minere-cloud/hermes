@@ -1,9 +1,10 @@
 import puppeteer from "puppeteer"
-import { FetchResult } from "./fetchResult.js"
+import { Build, FetchResult } from "./typings.js"
 
 const { MCVERSIONS_URL } = process.env
 
 export const vanillaFetcher = async (version: string): Promise<FetchResult> => {
+  const builds: Build[] = []
   const browser = await puppeteer.launch({ channel: "chrome", headless: "new" })
   const page = await browser.newPage()
   page.goto(`${MCVERSIONS_URL}/download/${version}`)
@@ -12,5 +13,6 @@ export const vanillaFetcher = async (version: string): Promise<FetchResult> => {
   // @ts-expect-error Putteer is broken
   const downloadUrl = await textSelector?.evaluate(el => el.href)
   await browser.close()
-  return { build: null, url: downloadUrl }
+  builds.push({id: null, url: downloadUrl})
+  return { builds }
 }
