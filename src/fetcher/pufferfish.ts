@@ -9,8 +9,8 @@ export const pufferfishFetcher = async (version: string): Promise<FetchResult> =
     const pufferfishResult = pufferfishFetch.data
     for (const pufferfish of pufferfishResult.builds) {
         const build = pufferfish.number
-        const url = `${PUFFERFISH_API_URL}/job/Pufferfish-${version}/${build}/artifact/build/libs/${pufferfish.artifacts[0].fileName}`
-        builds.push({id: build,url})
+        const url = pufferfish.artifacts.length != 0 ? `${PUFFERFISH_API_URL}/job/Pufferfish-${version}/${build}/artifact/build/libs/${pufferfish.artifacts[0].fileName}` : ""
+        builds.push({ id: build, url })
     }
     return { builds }
 }
