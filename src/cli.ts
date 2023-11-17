@@ -31,7 +31,7 @@ const cli = meow('Create Fetch Job', { importMeta: import.meta, flags: { type: {
         for (const build of builds) {
           messages.push({
             key: `fetch-${version}`,
-            value: JSON.stringify({ version, build: build.id, url: build.url })
+            value: JSON.stringify({ version, build: build.id?.toString(), url: build.url })
           })
         }
         break
