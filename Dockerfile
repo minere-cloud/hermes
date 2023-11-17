@@ -8,7 +8,7 @@ RUN npm ci && npm run build
 
 FROM node:20.9-bullseye-slim AS FINAL
 
-RUN apt-get update && apt-get install ca-certificates
+RUN apt-get update && apt-get install -y ca-certificates
 
 USER node
 
